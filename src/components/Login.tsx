@@ -1,6 +1,8 @@
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 import { loginFields } from "../Constants/FormFields";
 import Input from "./Input";
+import FormExtra from "./FormExtra";
+import FormAction from "./FormAction";
 
 const fields = loginFields;
 const fieldsState: Record<string | number | symbol, string>= {};
@@ -9,31 +11,40 @@ fields.forEach(field => fieldsState[field.id] = "");
 export default function Login() {
     const [loginState, setLoginState] = useState(fieldsState);
 
-    const handleChange: ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({
             ...loginState, [e.target.id]:e.target.value
         });
     };
 
+    const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        //authenticateUser();
+    }
+
     return (
         <div>
             <form>
-                {
-                    fields.map(field =>
-                        <Input
-                            key = {field.id}
-                            handleChange = {handleChange}
-                            value = {loginState[field.id]}
-                            labelText = {field.labelText}
-                            labelFor = {field.labelFor}
-                            id = {field.id}
-                            name = {field.name}
-                            type = {field.type}
-                            isRequired = {field.isRequired}
-                            placeholder = {field.placeholder}
-                        />
-                    )
-                }
+                <div>
+                    {
+                        fields.map(field =>
+                            <Input
+                                key = {field.id}
+                                handleChange = {handleChange}
+                                value = {loginState[field.id]}
+                                labelText = {field.labelText}
+                                labelFor = {field.labelFor}
+                                id = {field.id}
+                                name = {field.name}
+                                type = {field.type}
+                                isRequired = {field.isRequired}
+                                placeholder = {field.placeholder}
+                            />
+                        )
+                    }
+                </div>
+                <FormExtra/>
+                <FormAction handleSubmit = {handleSubmit} text = "Login"/>
             </form>
         </div>
     );
