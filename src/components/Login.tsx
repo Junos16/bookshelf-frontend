@@ -8,12 +8,13 @@ const fields = loginFields;
 const fieldsState: Record<string | number | symbol, string>= {};
 fields.forEach(field => fieldsState[field.id] = "");
 
-export default function Login() {
+const Login = () => {
     const [loginState, setLoginState] = useState(fieldsState);
 
     const handleChange: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({
-            ...loginState, [e.target.id]:e.target.value
+            ...loginState, 
+            [e.target.id]: e.target.value
         });
     };
 
@@ -49,6 +50,8 @@ export default function Login() {
         </div>
     );
 }
+
+export default Login;
 
 // import axios from "axios";
 // import React, { useState } from "react";
