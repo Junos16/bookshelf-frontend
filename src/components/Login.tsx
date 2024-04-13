@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { loginFields } from "../Constants/FormFields";
+import { loginFields } from "../constants/FormFields";
 import Input from "./Input";
 import FormExtra from "./FormExtra";
 import FormAction from "./FormAction";
+import LoginConnection from "../connections/LoginConnection";
 
 const fields = loginFields;
+
 const fieldsState: Record<string | number | symbol, string>= {};
 fields.forEach(field => fieldsState[field.id] = "");
 
@@ -20,7 +22,7 @@ const Login = () => {
 
     const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        //authenticateUser();
+        LoginConnection(loginState);
     }
 
     return (

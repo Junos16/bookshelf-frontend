@@ -1,3 +1,6 @@
+import { Department } from "./department"
+import { Year } from "./year"
+
 const loginFields = [
     {
         labelText: "Username",
@@ -35,7 +38,7 @@ const signupFields = [
     {
         labelText: "Email Address",
         labelFor: "email-address",
-        id: "email-address",
+        id: "email",
         name: "email",
         type: "email",
         autoComplete: "email",
@@ -54,14 +57,23 @@ const signupFields = [
     },
     
     {
-        labelText: "Confirm Password",
-        labelFor: "confirm-password",
-        id: "confirm-password",
-        name: "confirm-password",
-        type: "password",
-        autoComplete: "confirm-password",
+        labelText: "Department",
+        labelFor: "department",
+        id: "department",
+        name: "department",
+        type: "select",
         isRequired: true,
-        placeholder: "Confirm Password"
+        options: Object.values(Department)
+    },
+    
+    {
+        labelText: "Year",
+        labelFor: "year",
+        id: "year",
+        name: "year",
+        type: "select",
+        isRequired: true,
+        options: Object.values(Year).filter(value => typeof value === "number")
     }
 ]
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { signupFields } from "../Constants/FormFields";
+import { signupFields } from "../constants/FormFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
+import SignupConnection from "../connections/SignupConnection";
 
 const fields = signupFields;
 const fieldsState: Record<string | number | symbol, string> = {};
@@ -19,7 +20,7 @@ const Signup = () => {
     
     const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        //authenticateUser();
+        SignupConnection(signupState); 
     }
 
     return (
@@ -27,23 +28,46 @@ const Signup = () => {
             <form>
                 <div>
                     {
-                        fields.map(field =>
-                            <Input
-                                key = {field.id}
-                                handleChange = {handleChange}
-                                value = {signupState[field.id]}
-                                labelText = {field.labelText}
-                                labelFor = {field.labelFor}
-                                id = {field.id}
-                                name = {field.name}
-                                type = {field.type}
-                                isRequired = {field.isRequired}
-                                placeholder = {field.placeholder}
-                            />
-                        )
+                        fields.map(field => {
+                            if (field.type === "select") {
+                                return (
+                                    <div key={field.id}>
+                                        <label htmlFor={field.labelFor}>{field.labelText}</label>
+                                        <select
+                                            id={field.id}
+                                            name={field.name}
+                                            value={signupState[field.id]}
+                                            onChange={handleChange}
+                                            required={field.isRequired}
+                                        >
+                                            <option value="">Select {field.labelText}</option>
+                                            {field.options?.map(option => (
+                                                <option key={option} value={option}>{option}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <Input
+                                        key={field.id}
+                                        handleChange={handleChange}
+                                        value={signupState[field.id]}
+                                        labelText={field.labelText}
+                                        labelFor={field.labelFor}
+                                        id={field.id}
+                                        name={field.name}
+                                        type={field.type}
+                                        isRequired={field.isRequired}
+                                        placeholder={field.placeholder}
+                                    />
+                                );
+                            }
+                        })
                     }
+
                 </div>
-                <FormAction handleSubmit = {handleSubmit} text = "Login"/>
+                <FormAction handleSubmit = {handleSubmit} text = "Signup"/>
             </form>
         </div>
     );

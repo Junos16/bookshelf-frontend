@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
                 paragraph = "Don't have an account yet? "
                 linkName = "Signup"
                 linkUrl = "/signup"
-                />
+            />
             <Login/>
         </div>
     );
