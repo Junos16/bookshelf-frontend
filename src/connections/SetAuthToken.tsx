@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const SetAuthToken = (token: string) => {
+const SetAuthToken = async (token: string): Promise<void> => {
     if (token) {
         axios.defaults.headers.common["Authorization"] = "${token}";
     } else {
-        delete axios.defaults.headers.common["Authorization"]
+        await delete axios.defaults.headers.common["Authorization"]
     }
 }
 

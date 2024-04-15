@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import LoggedIn from "../connections/LoggedIn";
+import Button from "../components/Button";
 
 const BookPage: React.FC = () => {
     return (
@@ -11,7 +11,16 @@ const BookPage: React.FC = () => {
                 linkName = "Home"
                 linkUrl = "/"
             />
-            <
+            <div>
+                <Button 
+                    linkName = "Login"
+                    linkUrl = "/login"
+                />
+                <Button
+                    linkName = "Signup"
+                    linkUrl = "/signup"
+                />
+            </div>
             <Grid
             />
         </div>

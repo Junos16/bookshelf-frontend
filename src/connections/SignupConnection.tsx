@@ -2,10 +2,10 @@ import axios from "axios";
 import { BASE_URL, authRoute } from "../constants/ConnectionRoutes";
 //import { signupFields } from "../constants/FormFields";
 
-const SignupConnection = (SignupDetails: Record<string, string>) => {
+const SignupConnection = async (SignupDetails: Record<string, string>): Promise<void> => {
     const route = BASE_URL + authRoute + "/signup";
 
-    axios.post(route, SignupDetails,
+    await axios.post(route, SignupDetails,
         {
             headers: {
                 "Content-Type": "application/json"
