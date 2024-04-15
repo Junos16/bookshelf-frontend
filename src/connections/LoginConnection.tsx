@@ -8,7 +8,7 @@ const LoginConnection = async (loginDetails: Record<string, string>): Promise<vo
     
     await axios.post(route, 
         loginFields.map(field => loginDetails[field["id"]]),
-         {
+        {
         headers: {
             "Content-Type": "application/json"
         }
