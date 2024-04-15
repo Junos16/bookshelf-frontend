@@ -1,31 +1,35 @@
 import { Department, UserRole, Year } from "./enums";
 
-export class Book {
-    isbn!: number;
-    title!: string;
-    author!: string;
-    publisher!: string;
-    language!: string;
-    department!: Department;
-    dateReleased!: Date;
-    edition!: number;
+interface templateInterface {
+    [key: string]: string | number | Date | Department | Year | User | Doc[];
 }
 
-export class Doc {
-    id!: number;
-    title!: string;
-    owner!: User;
-    department!: Department;
-    year!: Year;
-    language!: string;
+export interface Book extends templateInterface {
+    isbn: number;
+    title: string;
+    author: string;
+    publisher: string;
+    language: string;
+    department: Department;
+    dateReleased: Date;
+    edition: number;
 }
 
-export class User {
-    id!: number;
-    username!: string;
-    email!: string;
-    role!: UserRole;
-    department!: Department;
-    year!: Year;
-    docs!: Doc[];
+export interface Doc extends templateInterface {
+    id: number;
+    title: string;
+    owner: User;
+    department: Department;
+    year: Year;
+    language: string;
+}
+
+export interface User extends templateInterface {
+    id: number;
+    username: string;
+    email: string;
+    role: UserRole;
+    department: Department;
+    year: Year;
+    docs: Doc[];
 }
