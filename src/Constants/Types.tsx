@@ -4,6 +4,15 @@ interface templateInterface {
     [key: string]: string | number | Date | Department | Year | User | Doc[];
 }
 
+export interface QueryParams extends templateInterface {
+    filterByKey: string;
+    filterByValue: string | number;
+    sortBy: string;
+    sortOrder: "DESC" | "ASC"
+    limit: number
+    offset: number
+}
+
 export interface Book extends templateInterface {
     isbn: number;
     title: string;

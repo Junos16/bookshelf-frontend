@@ -4,7 +4,7 @@ import React from "react";
 
 type BookDocValue = string | number | Date | Department | Year | User | Doc[];
 
-const Table: React.FC<Book[] | Doc[]> = (list: (Book[] | Doc[])) => {
+const Table: React.FC<Book[] | Doc[]> = (list) => {
     const keys = Object.keys(list[0] || {}) as (keyof Book | keyof Doc)[];
 
     return (
