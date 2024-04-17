@@ -3,6 +3,7 @@ import { BASE_URL, bookRoute, docRoute } from "../constants/ConnectionRoutes";
 import { Book, Doc, QueryParams } from "../constants/Types";
 
 const GetEntitiesConnection = async (entityType: string, query: Partial<QueryParams>): Promise<Book[] | Doc[] | undefined> => {
+    console.log("retard");
     const route = (entityType === "Book" ? 
         BASE_URL + bookRoute + "/" : 
         BASE_URL + docRoute + "/"
@@ -12,7 +13,7 @@ const GetEntitiesConnection = async (entityType: string, query: Partial<QueryPar
         params: query,
         headers: {
             "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
+            // "Authorization": localStorage.getItem("token")
         }
     })
     .then((response) => {

@@ -2,13 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Button: React.FC<{
-    linkName: string;
-    linkUrl: string;
-}> = ({linkName, linkUrl}) => {
+    linkName: string,
+    linkUrl?: string,
+    func?: () => void
+}> = ({ linkName, linkUrl, func }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(linkUrl);
+        if (linkUrl) navigate(linkUrl);
+        else if (func !== undefined) func();
     };
 
     return (

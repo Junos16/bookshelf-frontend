@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL, authRoute } from "../constants/ConnectionRoutes";
 import { loginFields } from "../constants/FormFields";
-import SetAuthToken from "./SetAuthToken";
+//import SetAuthToken from "../utilities/SetAuthToken";
 
 const LoginConnection = async (loginDetails: Record<string, string>): Promise<void> => {
     const route = BASE_URL + authRoute + "/login";
@@ -10,14 +10,17 @@ const LoginConnection = async (loginDetails: Record<string, string>): Promise<vo
         loginFields.map(field => loginDetails[field["id"]]),
         {
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("token")
         }
     })
     .then(async (response) => {
         console.log(response);
         const token = response.data.token;
+        const expiresIn = response.data.expiresIn;
         localStorage.setItem("token", token);
-        await SetAuthToken(token);
+        localStorage.setItem("expiresIn", expiresIn);
+        //await SetAuthToken(token);
     })
     .catch((error) => { 
         console.error(error.message);

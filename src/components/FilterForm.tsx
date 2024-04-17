@@ -58,6 +58,7 @@ const FilterForm: React.FC<{
                 <div>
                     <label htmlFor="filterByKey">Filter By:</label>
                     <select id="filterByKey" onChange={handleChange} value={queryParams.filterByKey}>
+                        <option key = "" value = ""></option>
                         {columns.map((column) => (
                             <option key={column} value={column}>
                                 {column}
@@ -74,6 +75,7 @@ const FilterForm: React.FC<{
                 <div>
                     <label htmlFor="sortBy">Sort By:</label>
                     <select id="sortBy" onChange={handleChange} value={queryParams.sortBy}>
+                        <option key = "" value = ""></option>
                         {columns.map((column) => (
                             <option key={column} value={column}>
                                 {column}
