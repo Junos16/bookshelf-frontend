@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginFields } from "../constants/FormFields";
 import Input from "./Input";
 import FormExtra from "./FormExtra";
@@ -12,7 +13,8 @@ fields.forEach(field => fieldsState[field.id] = "");
 
 const Login = () => {
     const [loginState, setLoginState] = useState(fieldsState);
-
+    const navigate = useNavigate();
+    
     const handleChange: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({
             ...loginState, 
@@ -23,6 +25,7 @@ const Login = () => {
     const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         LoginConnection(loginState);
+        navigate("/");
     }
 
     return (

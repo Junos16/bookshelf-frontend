@@ -1,4 +1,4 @@
-import { Department, UserRole, Year } from "./enums";
+import { Department, UserRole, Year } from "./Enums";
 
 interface templateInterface {
     [key: string]: string | number | Date | Department | Year | User | Doc[];
@@ -6,11 +6,11 @@ interface templateInterface {
 
 export interface QueryParams extends templateInterface {
     filterByKey: string;
-    filterByValue: string | number;
+    filterByValue: string;
     sortBy: string;
-    sortOrder: "DESC" | "ASC"
-    limit: number
-    offset: number
+    sortOrder: "DESC" | "ASC";
+    limit: number;
+    offset: number;
 }
 
 export interface Book extends templateInterface {

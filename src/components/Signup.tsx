@@ -3,12 +3,14 @@ import { signupFields } from "../constants/FormFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
 import SignupConnection from "../connections/SignupConnection";
+import { useNavigate } from "react-router-dom";
 
 const fields = signupFields;
 const fieldsState: Record<string | number | symbol, string> = {};
 fields.forEach(field => fieldsState[field.id] = "");
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [signupState, setSignupState] = useState(fieldsState);
 
     const handleChange: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,7 @@ const Signup = () => {
     const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         SignupConnection(signupState); 
+        navigate("/login");
     }
 
     return (

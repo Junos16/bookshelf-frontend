@@ -1,4 +1,4 @@
-import { Department, Year } from "./enums"
+import { Department, Year } from "./Enums"
 
 const loginFields = [
     {
