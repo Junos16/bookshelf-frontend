@@ -6,7 +6,7 @@ import Table from "../components/Table";
 import GetEntitiesConnection from "../connections/GetEntitiesConnection";
 import Navbar from "../components/Navbar";
 import { Book, Doc, QueryParams } from "../constants/Types";
-import CheckTokenExpiration from "../utilities/CheckTokenExpiration";
+// import CheckTokenExpiration from "../utilities/CheckTokenExpiration";
 
 const HomePage: React.FC = () => {
     const [selectedEntity, setSelectedEntity] = useState("Book");
@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
     const [LoggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        setLoggedIn(localStorage.getItem("token") ? !!CheckTokenExpiration() : false);
+        setLoggedIn(localStorage.getItem("token") ? true : false);
         async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
@@ -52,8 +52,7 @@ const HomePage: React.FC = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expiresIn")
+        localStorage.clear();
         //console.log(localStorage.getItem("token"));
         setLoggedIn(false);
     };
@@ -68,10 +67,16 @@ const HomePage: React.FC = () => {
             />
             <div>
                 {LoggedIn ? (
-                    <Button 
-                        linkName = "Logout"
-                        func = {handleLogout}
-                    />
+                    <div>
+                        <Button
+                            linkName="Logout"
+                            func={handleLogout} 
+                        />
+                        <Button
+                            linkName="Profile"
+                            linkUrl="/Profile" 
+                        />
+                    </div>
                 ) : ( 
                     <div>
                        <Button 
@@ -88,7 +93,7 @@ const HomePage: React.FC = () => {
             <div>
                 <Navbar onSelectEntity = {setSelectedEntity} />
                 <FilterForm 
-                    entityType = "Book"
+                    entityType = {selectedEntity}
                     queryParams = {queryParams}
                     handleChange = {handleChange}
                     handleSubmit = {handleSubmit}

@@ -15,11 +15,17 @@ const LoginConnection = async (loginDetails: Record<string, string>): Promise<vo
         }
     })
     .then(async (response) => {
-        console.log(response);
+        //console.log(response);
         const token = response.data.token;
         const expiresIn = response.data.expiresIn;
+        const userId = response.data.userId;
+        const userRole = response.data.userRole;
         localStorage.setItem("token", token);
         localStorage.setItem("expiresIn", expiresIn);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("userRole", userRole);
+        //console.log(localStorage.getItem("userId"));
+        //localStorage.clear();
         //await SetAuthToken(token);
     })
     .catch((error) => { 

@@ -6,7 +6,7 @@ const CheckTokenExpiration = async (): Promise<boolean> => {
     const isTokenExpired = expirationTime < Date.now();
 
     if (isTokenExpired) {
-        localStorage.clear;
+        localStorage.clear();
         return false;
         //await delete axios.defaults.headers.common["Authorization"];
     } else return true;
