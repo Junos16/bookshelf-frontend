@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL, userRoute } from "../constants/ConnectionRoutes"
 import { User } from "../constants/Types";
+import { GetCookies } from "../utilities/CookieUtilities";
 
 const UserDetailConnection = async (): Promise<User | undefined> => {
     const userId = localStorage.getItem("userId");
@@ -10,7 +11,7 @@ const UserDetailConnection = async (): Promise<User | undefined> => {
     return await axios.get(route, {
         headers: {
             "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
+            "Authorization": GetCookies()?.token 
         }
     })
     .then((response) => {
