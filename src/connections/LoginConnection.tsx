@@ -1,32 +1,24 @@
 import axios from "axios";
 import { BASE_URL, authRoute } from "../constants/ConnectionRoutes";
 import { loginFields } from "../constants/FormFields";
+import { SetCookies } from "../utilities/CookieUtilities";
 //import SetAuthToken from "../utilities/SetAuthToken";
 
 const LoginConnection = async (loginDetails: Record<string, string>): Promise<void> => {
     const route = BASE_URL + authRoute + "/login";
-    
+    const payload = loginFields.map(field => loginDetails[field["id"]])
+
     await axios.post(route, 
-        loginFields.map(field => loginDetails[field["id"]]),
+        payload,
         {
         headers: {
             "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("token")
-        }
+        },
+        withCredentials: true
     })
     .then(async (response) => {
-        //console.log(response);
-        const token = response.data.token;
-        const expiresIn = response.data.expiresIn;
-        const userId = response.data.userId;
-        const userRole = response.data.userRole;
-        localStorage.setItem("token", token);
-        localStorage.setItem("expiresIn", expiresIn);
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("userRole", userRole);
-        //console.log(localStorage.getItem("userId"));
-        //localStorage.clear();
-        //await SetAuthToken(token);
+        const { token, expiresIn, userId, userRole } = response.data;
+        SetCookies(token, expiresIn, userId, userRole);
     })
     .catch((error) => { 
         console.error(error.message);

@@ -6,6 +6,7 @@ import Table from "../components/Table";
 import GetEntitiesConnection from "../connections/GetEntitiesConnection";
 import Navbar from "../components/Navbar";
 import { Book, Doc, QueryParams } from "../constants/Types";
+import { Authorized, RemoveCookies } from "../utilities/CookieUtilities";
 // import CheckTokenExpiration from "../utilities/CheckTokenExpiration";
 
 const HomePage: React.FC = () => {
@@ -23,7 +24,7 @@ const HomePage: React.FC = () => {
     const [LoggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        setLoggedIn(localStorage.getItem("token") ? true : false);
+        setLoggedIn(Authorized());
         async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
@@ -52,8 +53,7 @@ const HomePage: React.FC = () => {
     };
 
     const handleLogout = () => {
-        localStorage.clear();
-        //console.log(localStorage.getItem("token"));
+        RemoveCookies();
         setLoggedIn(false);
     };
 
