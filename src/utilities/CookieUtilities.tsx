@@ -2,9 +2,10 @@ import Cookies from "js-cookie";
 import { UserRole } from "../constants/Enums";
 
 export const SetCookies = (token: string, expiresIn: number, userId: number, userRole: UserRole) => {
-    Cookies.set("token", token, { expires: expiresIn });
-    Cookies.set("userId", userId.toString(), { expires: expiresIn });
-    Cookies.set("userRole", userRole, { expires: expiresIn });
+    const expirationDate = new Date(Date.now() + expiresIn * 1000);
+    Cookies.set("token", token, { expires: expirationDate });
+    Cookies.set("userId", userId.toString(), { expires: expirationDate });
+    Cookies.set("userRole", userRole, { expires: expirationDate });
 }
 
 export const RemoveCookies = () => {
@@ -18,7 +19,7 @@ export const GetCookies = () => {
     const userId = Cookies.get("userId");
     const userRole = Cookies.get("userRole");
     if (userId === undefined) return null;
-    else return { token, userId, userRole };
+    else return { token, userId: parseInt(userId), userRole };
 }
 
 export const Authorized = () => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
-import Login from "../components/Login";
+// import Login from "../components/Login";
+import DetailsForm from "../components/DetailsForm";
 
 const LoginPage: React.FC = () => {
     return (
@@ -11,7 +12,8 @@ const LoginPage: React.FC = () => {
                 linkName = "Signup"
                 linkUrl = "/signup"
             />
-            <Login/>
+            {/* <Login/> */}
+            <DetailsForm fieldType="Login"/>
         </div>
     );
 }

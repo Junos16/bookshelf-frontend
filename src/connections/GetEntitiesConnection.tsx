@@ -3,7 +3,7 @@ import { BASE_URL, bookRoute, docRoute } from "../constants/ConnectionRoutes";
 import { Book, Doc, QueryParams } from "../constants/Types";
 
 const GetEntitiesConnection = async (entityType: string, query: Partial<QueryParams>): Promise<Book[] | Doc[] | undefined> => {
-    console.log("retard");
+    //console.log("retard");
     const route = (entityType === "Book" ? 
         BASE_URL + bookRoute + "/" : 
         BASE_URL + docRoute + "/"

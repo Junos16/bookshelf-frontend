@@ -8,15 +8,14 @@ const LoginConnection = async (loginDetails: Record<string, string>): Promise<vo
     const route = BASE_URL + authRoute + "/login";
     const payload = loginFields.map(field => loginDetails[field["id"]])
 
-    await axios.post(route, 
-        payload,
+    await axios.post(route, payload,
         {
         headers: {
             "Content-Type": "application/json",
         },
         withCredentials: true
     })
-    .then(async (response) => {
+    .then((response) => {
         const { token, expiresIn, userId, userRole } = response.data;
         SetCookies(token, expiresIn, userId, userRole);
     })

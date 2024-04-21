@@ -5,8 +5,9 @@ import FilterForm from "../components/FilterForm";
 import Table from "../components/Table";
 import GetEntitiesConnection from "../connections/GetEntitiesConnection";
 import Navbar from "../components/Navbar";
-import { Book, Doc, QueryParams } from "../constants/Types";
-import { Authorized, RemoveCookies } from "../utilities/CookieUtilities";
+import { Book, Doc, QueryParams, User } from "../constants/Types";
+import { Authorized, GetCookies, RemoveCookies } from "../utilities/CookieUtilities";
+import { UserRole } from "../constants/Enums";
 // import CheckTokenExpiration from "../utilities/CheckTokenExpiration";
 
 const HomePage: React.FC = () => {
@@ -20,15 +21,25 @@ const HomePage: React.FC = () => {
         offset: 0
     });
     
-    const [Entities, setEntities] = useState<Book[] | Doc[] | undefined>(undefined)
+    const [Entities, setEntities] = useState<Book[] | Doc[] | User[] | undefined>(undefined)
     const [LoggedIn, setLoggedIn] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => {  
+        // const checkAuthStatus = () => {
+        //     if (!Authorized()) setLoggedIn(false);
+        //     else setLoggedIn(true);
+        // };
+
+        // const intervalId = setInterval(checkAuthStatus, 3600 * 1000);
+        // return () => clearInterval(intervalId);
         setLoggedIn(Authorized());
+        console.log(GetCookies()?.token);
         async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
-    }, [queryParams, selectedEntity]); 
+    }, [queryParams, selectedEntity]);
+    
+
     
     const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value, type, checked } = e.target;
@@ -57,6 +68,11 @@ const HomePage: React.FC = () => {
         setLoggedIn(false);
     };
 
+    const handleLogin = () => {
+        setLoggedIn(true);
+        window.location.reload();
+    }
+
     return (
         <div>
             <Header
@@ -76,12 +92,19 @@ const HomePage: React.FC = () => {
                             linkName="Profile"
                             linkUrl="/Profile" 
                         />
+                        {GetCookies()?.userRole === UserRole.ADMIN ? (
+                            <Button
+                                linkName="Add Book"
+                                linkUrl="/entity/Book/0"  
+                            />  
+                    ) : null};
                     </div>
                 ) : ( 
                     <div>
                        <Button 
                             linkName = "Login"
                             linkUrl = "/login"
+                            func = {handleLogin}
                         />
                         <Button
                             linkName = "Signup"
@@ -99,7 +122,13 @@ const HomePage: React.FC = () => {
                     handleSubmit = {handleSubmit}
                     handleButtonClick = {handleButtonClick}
                 />
-                <Table list = {Entities ?? []} />
+                <Table 
+                    list={Entities ?? []} 
+                    download={true} 
+                    update={GetCookies()?.userRole === UserRole.ADMIN} 
+                    del={GetCookies()?.userRole === UserRole.ADMIN}
+                />
+
             </div>
         </div>
     );

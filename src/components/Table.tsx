@@ -1,8 +1,14 @@
 import React from "react";
-import { tempBook, tempDoc } from "../constants/TempObjects";
-import { Book, Doc } from "../constants/Types";
+import { tempBook, tempDoc, tempUser } from "../constants/TempObjects";
+import { Book, Doc, User } from "../constants/Types";
+import Button from "./Button";
 
-const Table: React.FC<{ list: Book[] | Doc[] }> = ({ list }) => {
+const Table: React.FC<{ 
+    list: Book[] | Doc[] | User[],
+    download: boolean,
+    update: boolean,
+    del: boolean
+}> = ({ list, download, update, del }) => {
     if (!list || list.length === 0) {
         return (
             <div>
@@ -11,8 +17,8 @@ const Table: React.FC<{ list: Book[] | Doc[] }> = ({ list }) => {
         );
     }
     
-    const entity = Array.isArray(list) && list[0].isbn ? "Book" : "Doc";
-    const tempEntity = entity === "Book" ? tempBook : tempDoc;
+    const entityType = Array.isArray(list) && list[0].isbn ? "Book" : (list[0].password ? "User" : "Doc");
+    const tempEntity = entityType === "Book" ? tempBook : (entityType === "Doc" ? tempDoc : tempUser);
     const columns = Object.keys(tempEntity);
 
     return (
@@ -23,6 +29,9 @@ const Table: React.FC<{ list: Book[] | Doc[] }> = ({ list }) => {
                         {columns.map((key) => (
                             <th key={key}>{key}</th>
                         ))}
+                        {download ? <th>Download</th> : null}
+                        {update ? <th>Update</th> : null}
+                        {del ? <th>Delete</th> : null}
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +40,9 @@ const Table: React.FC<{ list: Book[] | Doc[] }> = ({ list }) => {
                             {columns.map((key) => (
                                 <td key={key}>{item[key as keyof Book | keyof Doc] as string}</td>
                             ))}
+                            <td>{download ? <Button linkName = "Download"/> : null}</td>
+                            <td>{update ? <Button linkName = "Update" linkUrl = {"/entity/" + entityType + "/"+ (entityType === "Book" ? item.isbn : item.id)}/> : null}</td>
+                            <td>{del ? <Button linkName = "Delete"/> : null}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -40,40 +52,3 @@ const Table: React.FC<{ list: Book[] | Doc[] }> = ({ list }) => {
 };
 
 export default Table;
-
-// import { Department, Year } from "../constants/Enums";
-// import { Book, Doc, User } from "../constants/Types";
-// import React from "react";
-
-// type BookDocValue = string | number | Date | Department | Year | User | Doc[];
-
-// const Table: React.FC<{list: Book[] | Doc[]}> = ({ list }) => {
-//     const keys = Object.keys(list[0] || {}) as (keyof Book | keyof Doc)[];
-
-//     return (
-//         <div>
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         {keys.map(key => (
-//                             <th key={key}>{key}</th>
-//                         ))}
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {list.map((item, index) => (
-//                         <tr key={index}>
-//                             {keys.map(key => (
-//                                 <td key={key}>
-//                                     {(item as Record<string, BookDocValue>)[key].toString()}
-//                                 </td>
-//                             ))}
-//                         </tr>
-//                     ))}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// };
-
-// export default Table;
