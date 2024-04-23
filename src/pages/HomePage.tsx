@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
         // const intervalId = setInterval(checkAuthStatus, 3600 * 1000);
         // return () => clearInterval(intervalId);
         setLoggedIn(Authorized());
-        console.log(GetCookies()?.token);
+        // console.log(GetCookies()?.token);
         async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
@@ -114,7 +114,10 @@ const HomePage: React.FC = () => {
                 )}
             </div>
             <div>
-                <Navbar onSelectEntity = {setSelectedEntity} />
+                <Navbar
+                    options = {["Book", "Doc"]} 
+                    onSelectEntity = {setSelectedEntity} 
+                />
                 <FilterForm 
                     entityType = {selectedEntity}
                     queryParams = {queryParams}
@@ -128,7 +131,6 @@ const HomePage: React.FC = () => {
                     update={GetCookies()?.userRole === UserRole.ADMIN} 
                     del={GetCookies()?.userRole === UserRole.ADMIN}
                 />
-
             </div>
         </div>
     );

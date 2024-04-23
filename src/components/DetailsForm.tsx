@@ -7,19 +7,25 @@ import FormAction from "./FormAction";
 // import UpdateEntityConnection from "../connections/UpdateEntityConnection";
 import { useNavigate } from "react-router-dom";
 // import CreateEntityConnection from "../connections/CreateEntityConnection";
-import { Book, Doc, User } from "../constants/Types";
+// import { Book, Doc, User } from "../constants/Types";
+import UpdateEntityConnection from "../connections/UpdateEntityConnection";
+import CreateEntityConnection from "../connections/CreateEntityConnection";
 
 const DetailsForm: React.FC<{ 
     fieldType: string,
-    func: (entityType: string, entityDetails: Partial<Book | Doc | User>, file?: File | null) => Promise<void>
+    update?: typeof UpdateEntityConnection,
+    create?: typeof CreateEntityConnection,
+    id: number
 }> = ({ 
     fieldType,
-    func 
+    update,
+    create,
+    id 
 }) => {
     
     const fields = (fieldType === "Book" ?
         bookFields : (fieldType === "Doc" ?
-            docFields : (fieldType === "Login" ?
+            docFields.filter(field => field.id !== "owner") : (fieldType === "Login" ?
                 loginFields : signupFields
             )
         )
@@ -48,10 +54,12 @@ const DetailsForm: React.FC<{
     const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (fieldType === "Book" || fieldType === "Doc") {
-            func(fieldType, fieldState, file);
+            if (create) create(fieldType, fieldState, file);
+            else if (update && id) update(fieldType, fieldState, id, file);
         }
-        else if(fieldType === "User") {
-            func(fieldType, fieldState);
+        else if (fieldType === "User") {
+            if (create) create(fieldType, fieldState);
+            else if (update && id) update(fieldType, fieldState, id);
         }
         else if (fieldType === "Login") {
             LoginConnection(fieldState);
@@ -102,7 +110,7 @@ const DetailsForm: React.FC<{
                         );
                     }
                 })}
-                {(fieldType !== "Login" && fieldType !== "Signup") ?
+                {(fieldType !== "Login" && fieldType !== "Signup" && fieldType !== "User") ?
                     <div>
                         <label htmlFor = "file">Upload File</label>
                         <input type = "file" name = "pdf" id = "file" onChange = {handleFileChange}/>

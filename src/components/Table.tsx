@@ -2,6 +2,7 @@ import React from "react";
 import { tempBook, tempDoc, tempUser } from "../constants/TempObjects";
 import { Book, Doc, User } from "../constants/Types";
 import Button from "./Button";
+import DownloadConnection from "../connections/DownloadConnection";
 
 const Table: React.FC<{ 
     list: Book[] | Doc[] | User[],
@@ -20,6 +21,10 @@ const Table: React.FC<{
     const entityType = Array.isArray(list) && list[0].isbn ? "Book" : (list[0].password ? "User" : "Doc");
     const tempEntity = entityType === "Book" ? tempBook : (entityType === "Doc" ? tempDoc : tempUser);
     const columns = Object.keys(tempEntity);
+
+    const handleDownload = (id: number) => {
+        DownloadConnection(entityType, id);
+    }   
 
     return (
         <div>
@@ -40,9 +45,29 @@ const Table: React.FC<{
                             {columns.map((key) => (
                                 <td key={key}>{item[key as keyof Book | keyof Doc] as string}</td>
                             ))}
-                            <td>{download ? <Button linkName = "Download"/> : null}</td>
-                            <td>{update ? <Button linkName = "Update" linkUrl = {"/entity/" + entityType + "/"+ (entityType === "Book" ? item.isbn : item.id)}/> : null}</td>
-                            <td>{del ? <Button linkName = "Delete"/> : null}</td>
+                            <td>
+                                {download ? 
+                                    <Button 
+                                        linkName = "Download"
+                                        func = {() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string: item.id as string))}
+                                    /> 
+                                    : null}
+                            </td>
+                            <td>
+                                {update ? 
+                                    <Button 
+                                        linkName = "Update" 
+                                        linkUrl = {"/entity/" + entityType + "/"+ (entityType === "Book" ? item.isbn : item.id)}
+                                    /> 
+                                : null}
+                            </td>
+                            <td>
+                                {del ? 
+                                    <Button 
+                                        linkName = "Delete"
+                                    /> 
+                                : null}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

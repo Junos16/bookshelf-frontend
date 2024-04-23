@@ -3,12 +3,13 @@ import { BASE_URL, bookRoute, docRoute, userRoute } from "../constants/Connectio
 import { GetCookies } from "../utilities/CookieUtilities";
 import { Book, Doc, User } from "../constants/Types";
 
-const UpdateEntityConnection = async (entityType: string, entityDetails: Partial<Book | Doc | User>, file?: File | null) => {
+const UpdateEntityConnection = async (entityType: string, entityDetails: Partial<Book | Doc | User>, id: number, file?: File | null, ) => {
+    console.log(id);
     const route = (entityType === "Book" ?
-        BASE_URL + bookRoute + "/" + entityDetails.isbn :
+        BASE_URL + bookRoute + "/" + id :
         (entityType === "User" ? 
-            BASE_URL + userRoute + "/" + entityDetails.id:
-            BASE_URL + docRoute + "/" + entityDetails.id
+            BASE_URL + userRoute + "/" + GetCookies()?.userId :
+            BASE_URL + docRoute + "/" + id
         )
     );
 
@@ -16,7 +17,9 @@ const UpdateEntityConnection = async (entityType: string, entityDetails: Partial
 
     const formData = new FormData();
     Object.entries(entityDetails).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
         formData.append(key, value as string);
+    }
     });
 
     file ? formData.append("file", file) : null;

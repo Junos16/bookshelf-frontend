@@ -19,7 +19,7 @@ const EntityPage = () => {
             const key = entityType === "Book" ? "isbn" : "id";
             const params: Partial<QueryParams> = {
                 filterByKey: key,
-                filterByValue: id?.toString(),
+                filterByValue: id,
                 sortBy: "",
                 sortOrder: "ASC",
                 limit: 10,
@@ -45,7 +45,8 @@ const EntityPage = () => {
                     <h2>Update {entityType}</h2>
                     <DetailsForm 
                         fieldType={entityType}
-                        func={UpdateEntityConnection}
+                        id={parseInt(id)}
+                        update={UpdateEntityConnection}
                     />
                 </div>
             ) : (
@@ -53,7 +54,8 @@ const EntityPage = () => {
                     <h2>Create new {entityType}?</h2>
                     <DetailsForm 
                         fieldType={entityType}
-                        func={CreateEntityConnection}
+                        id={parseInt(id)}
+                        create={CreateEntityConnection}
                     />
                 </div>  
             )}
