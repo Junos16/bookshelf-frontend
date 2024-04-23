@@ -11,7 +11,6 @@ const EntityPage = () => {
     const params = useParams();
     const entityType = params.type as string;
     const id = params.id === undefined ? "" : params.id;
-    //console.log(id);
     const [entityDetails, setEntityDetails] = useState<User | Book | Doc | undefined>(undefined);
 
     useEffect(() => {

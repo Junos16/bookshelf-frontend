@@ -4,7 +4,6 @@ import { Book, Doc, QueryParams } from "../constants/Types";
 import { GetCookies } from "../utilities/CookieUtilities";
 
 const GetEntitiesConnection = async (entityType: string, query: Partial<QueryParams>): Promise<Book[] | Doc[] | undefined> => {
-    //console.log("retard");
     const route = (entityType === "Book" ? 
         BASE_URL + bookRoute + "/" 
         : (entityType === "Doc" ?
@@ -14,7 +13,6 @@ const GetEntitiesConnection = async (entityType: string, query: Partial<QueryPar
     );
 
     const token = GetCookies()?.token;
-    // console.log(query);
     
     return await axios.get(route, {
         params: query,
@@ -24,7 +22,6 @@ const GetEntitiesConnection = async (entityType: string, query: Partial<QueryPar
         }
     })
     .then((response) => {
-        // console.log(response);
         return response.data;
     })
     .catch((error) => {

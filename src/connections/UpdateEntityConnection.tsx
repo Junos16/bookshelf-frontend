@@ -17,7 +17,6 @@ const UpdateEntityConnection = async (entityType: string, entityDetails: Partial
 
     const formData = new FormData();
     Object.entries(entityDetails).forEach(([key, value]) => {
-        // console.log(`Key: ${key}, Value: ${value}`);
         if (value !== undefined && value !== null && value !== "") {
         formData.append(key, value as string);
     }
