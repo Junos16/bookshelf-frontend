@@ -8,7 +8,6 @@ import Navbar from "../components/Navbar";
 import { Book, Doc, QueryParams, User } from "../constants/Types";
 import { Authorized, GetCookies, RemoveCookies } from "../utilities/CookieUtilities";
 import { UserRole } from "../constants/Enums";
-// import CheckTokenExpiration from "../utilities/CheckTokenExpiration";
 
 const HomePage: React.FC = () => {
     const [selectedEntity, setSelectedEntity] = useState("Book");
@@ -22,22 +21,14 @@ const HomePage: React.FC = () => {
     });
     
     const [Entities, setEntities] = useState<Book[] | Doc[] | User[] | undefined>(undefined)
-    const [LoggedIn, setLoggedIn] = useState(false);
+    const [LoggedIn, setLoggedIn] = useState<boolean>();
 
     useEffect(() => {  
-        // const checkAuthStatus = () => {
-        //     if (!Authorized()) setLoggedIn(false);
-        //     else setLoggedIn(true);
-        // };
-
-        // const intervalId = setInterval(checkAuthStatus, 3600 * 1000);
-        // return () => clearInterval(intervalId);
         setLoggedIn(Authorized());
-        // console.log(GetCookies()?.token);
         async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
-    }, [queryParams, selectedEntity]);
+    }, [LoggedIn, queryParams, selectedEntity]);
     
 
     
@@ -53,7 +44,6 @@ const HomePage: React.FC = () => {
         e.preventDefault();
         const data = await GetEntitiesConnection(selectedEntity, queryParams);
         setEntities(data);
-        //console.log(localStorage.getItem("token"));
     };
 
     const handleButtonClick = (offsetChange: number) => {
@@ -69,8 +59,7 @@ const HomePage: React.FC = () => {
     };
 
     const handleLogin = () => {
-        setLoggedIn(true);
-        window.location.reload();
+        setLoggedIn(true);        
     }
 
     return (
@@ -95,7 +84,7 @@ const HomePage: React.FC = () => {
                         {GetCookies()?.userRole === UserRole.ADMIN ? (
                             <Button
                                 linkName="Add Book"
-                                linkUrl="/entity/Book/0"  
+                                linkUrl="/entity/Book/create"  
                             />  
                     ) : null};
                     </div>
@@ -115,7 +104,7 @@ const HomePage: React.FC = () => {
             </div>
             <div>
                 <Navbar
-                    options = {["Book", "Doc"]} 
+                    options = {Authorized() ? ["Book", "Doc"] : ["Book"]} 
                     onSelectEntity = {setSelectedEntity} 
                 />
                 <FilterForm 

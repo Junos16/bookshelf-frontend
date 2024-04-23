@@ -4,10 +4,7 @@ import Input from "./Input";
 import LoginConnection from "../connections/LoginConnection";
 import SignupConnection from "../connections/SignupConnection";
 import FormAction from "./FormAction";
-// import UpdateEntityConnection from "../connections/UpdateEntityConnection";
 import { useNavigate } from "react-router-dom";
-// import CreateEntityConnection from "../connections/CreateEntityConnection";
-// import { Book, Doc, User } from "../constants/Types";
 import UpdateEntityConnection from "../connections/UpdateEntityConnection";
 import CreateEntityConnection from "../connections/CreateEntityConnection";
 
@@ -15,7 +12,7 @@ const DetailsForm: React.FC<{
     fieldType: string,
     update?: typeof UpdateEntityConnection,
     create?: typeof CreateEntityConnection,
-    id: number
+    id?: number
 }> = ({ 
     fieldType,
     update,
@@ -51,7 +48,7 @@ const DetailsForm: React.FC<{
         setFile(uploadedFile);
     }
 
-    const handleSubmit: React.ReactEventHandler<HTMLElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit: React.ReactEventHandler<HTMLElement> = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (fieldType === "Book" || fieldType === "Doc") {
             if (create) create(fieldType, fieldState, file);
@@ -62,11 +59,13 @@ const DetailsForm: React.FC<{
             else if (update && id) update(fieldType, fieldState, id);
         }
         else if (fieldType === "Login") {
-            LoginConnection(fieldState);
+            e.preventDefault();
+            await LoginConnection(fieldState);
             navigate("/")
         }
         else {
-            SignupConnection(fieldState);
+            e.preventDefault();
+            await SignupConnection(fieldState);
             navigate("/login");
         }
     };
@@ -116,7 +115,7 @@ const DetailsForm: React.FC<{
                         <input type = "file" name = "pdf" id = "file" onChange = {handleFileChange}/>
                     </div> : null
                 }
-                <FormAction handleSubmit = {handleSubmit} text = {fieldType}/>
+                <FormAction handleSubmit = {handleSubmit} text = {fieldType !== "Login" && fieldType !== "Signup" ? `Update ${fieldType}` : fieldType}/>
             </form>
         </div>
     );

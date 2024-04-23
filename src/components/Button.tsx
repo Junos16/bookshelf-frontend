@@ -9,8 +9,10 @@ const Button: React.FC<{
     const navigate = useNavigate();
 
     const handleClick = () => {
+        // if (linkUrl) navigate(linkUrl);
+        // else if (func !== undefined) func();
         if (linkUrl) navigate(linkUrl);
-        else if (func !== undefined) func();
+        if (func) func();
     };
 
     return (

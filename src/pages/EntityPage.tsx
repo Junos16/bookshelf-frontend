@@ -27,7 +27,6 @@ const EntityPage = () => {
             }; 
             
             const entities = await GetEntitiesConnection(entityType, params);
-            // console.log(entities);
             setEntityDetails(entities === undefined ? undefined : entities[0]);
         }
         

@@ -36,7 +36,7 @@ const ProfilePage: React.FC = () => {
                     <h3>Documents Uploaded:</h3>
                     <Button
                         linkName="Upload Document"
-                        linkUrl="/entity/Doc/0"
+                        linkUrl="/entity/Doc/create"
                     />
                     <Table 
                         list = {userDetails["docs"]} 

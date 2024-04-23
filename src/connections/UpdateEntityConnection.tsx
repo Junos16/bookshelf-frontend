@@ -3,8 +3,7 @@ import { BASE_URL, bookRoute, docRoute, userRoute } from "../constants/Connectio
 import { GetCookies } from "../utilities/CookieUtilities";
 import { Book, Doc, User } from "../constants/Types";
 
-const UpdateEntityConnection = async (entityType: string, entityDetails: Partial<Book | Doc | User>, id: number, file?: File | null, ) => {
-    console.log(id);
+const UpdateEntityConnection = async (entityType: string, entityDetails: Partial<Book | Doc | User>, id: number, file?: File | null) => {
     const route = (entityType === "Book" ?
         BASE_URL + bookRoute + "/" + id :
         (entityType === "User" ? 
@@ -14,9 +13,11 @@ const UpdateEntityConnection = async (entityType: string, entityDetails: Partial
     );
 
     const token = GetCookies()?.token;
+    const contentType = file ? "multipart/form-data" : "application/json";
 
     const formData = new FormData();
     Object.entries(entityDetails).forEach(([key, value]) => {
+        // console.log(`Key: ${key}, Value: ${value}`);
         if (value !== undefined && value !== null && value !== "") {
         formData.append(key, value as string);
     }
@@ -27,7 +28,7 @@ const UpdateEntityConnection = async (entityType: string, entityDetails: Partial
     await axios.put(route, formData,
         {
             headers: {
-                "Content-Type": "multipart/form-data",
+                "Content-Type": contentType,
                 "Authorization": token
             }
         }

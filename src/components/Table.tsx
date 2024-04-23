@@ -3,6 +3,7 @@ import { tempBook, tempDoc, tempUser } from "../constants/TempObjects";
 import { Book, Doc, User } from "../constants/Types";
 import Button from "./Button";
 import DownloadConnection from "../connections/DownloadConnection";
+import DeleteEntityConnection from "../connections/DeleteEntityConnection";
 
 const Table: React.FC<{ 
     list: Book[] | Doc[] | User[],
@@ -25,6 +26,10 @@ const Table: React.FC<{
     const handleDownload = (id: number) => {
         DownloadConnection(entityType, id);
     }   
+
+    const handleDelete = (id: number) => {
+        DeleteEntityConnection(entityType, id);
+    }
 
     return (
         <div>
@@ -49,7 +54,7 @@ const Table: React.FC<{
                                 {download ? 
                                     <Button 
                                         linkName = "Download"
-                                        func = {() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string: item.id as string))}
+                                        func = {() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
                                     /> 
                                     : null}
                             </td>
@@ -65,6 +70,7 @@ const Table: React.FC<{
                                 {del ? 
                                     <Button 
                                         linkName = "Delete"
+                                        func = {() => handleDelete(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
                                     /> 
                                 : null}
                             </td>

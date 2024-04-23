@@ -14,7 +14,7 @@ const GetEntitiesConnection = async (entityType: string, query: Partial<QueryPar
     );
 
     const token = GetCookies()?.token;
-    console.log(query);
+    // console.log(query);
     
     return await axios.get(route, {
         params: query,

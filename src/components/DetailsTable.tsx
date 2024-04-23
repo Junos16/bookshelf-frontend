@@ -18,7 +18,7 @@ const DetailsTable: React.FC<{
                     {rows.map((key) => {
                         if (key === "docs") {
                             // console.log(key);
-                            console.log(typeof entity[key]);
+                            // console.log(typeof entity[key]);
                             return null; 
                         } else {
                             const value = entity[key] as string;
