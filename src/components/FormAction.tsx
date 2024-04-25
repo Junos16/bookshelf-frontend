@@ -22,7 +22,7 @@ const FormAction: React.FC<{
                     linkName={text}
                     action={action}
                     func={()=>handleSubmit}
-                    customClass="bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mt-4"
+                    customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mt-4"
                 />
             ) : (
                 <div></div>

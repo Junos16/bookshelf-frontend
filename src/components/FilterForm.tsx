@@ -70,14 +70,14 @@ const FilterForm: React.FC<{
                         className="rounded-md border border-gray-300 text-sm"
                     />
                 </div>
-                <button type="submit" className="bg-emerald-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Submit</button>
+                <button type="submit" className="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Submit</button>
                 <div className="items-center">
                     {queryParams.offset === 0 ? (
-                        <button onClick={() => handleButtonClick(10)} className="bg-blue-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Next</button>
+                        <button onClick={() => handleButtonClick(10)} className="transition duration-300 ease-in-out hover:bg-blue-600 bg-blue-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Next</button>
                     ) : (
                         <div className="flex">
-                            <button onClick={() => handleButtonClick(-10)} className="bg-blue-500 text-black font-semibold rounded-md px-2 py-1 mr-2 text-sm">Prev</button>
-                            <button onClick={() => handleButtonClick(10)} className="bg-blue-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Next</button>
+                            <button onClick={() => handleButtonClick(-10)} className="transition duration-300 ease-in-out hover:bg-blue-600 bg-blue-500 text-black font-semibold rounded-md px-2 py-1 mr-2 text-sm">Prev</button>
+                            <button onClick={() => handleButtonClick(10)} className="transition duration-300 ease-in-out hover:bg-blue-600 bg-blue-500 text-black font-semibold rounded-md px-2 py-1 text-sm">Next</button>
                         </div>
                     )}
                 </div>
