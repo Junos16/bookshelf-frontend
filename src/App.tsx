@@ -7,16 +7,18 @@ import EntityPage from "./pages/EntityPage";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path = "/" element = {<HomePage/>} />
-          <Route path = "/login" element = {<LoginPage/>} />
-          <Route path = "/signup" element = {<SignupPage/>} />
-          <Route path = "/profile" element = {<ProfilePage/>}/>
-          <Route path = "/entity/:type/:id" element = {<EntityPage/>}/>
-        </Routes>
-      </BrowserRouter>
+    <div className = "min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className = "max-w-md w-full space-y-8">
+        <BrowserRouter>
+          <Routes>
+            <Route path = "/" element = {<HomePage/>} />
+            <Route path = "/login" element = {<LoginPage/>} />
+            <Route path = "/signup" element = {<SignupPage/>} />
+            <Route path = "/profile" element = {<ProfilePage/>}/>
+            <Route path = "/entity/:type/:id" element = {<EntityPage/>}/>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
