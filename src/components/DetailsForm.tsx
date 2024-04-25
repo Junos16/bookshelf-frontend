@@ -53,10 +53,13 @@ const DetailsForm: React.FC<{
         if (fieldType === "Book" || fieldType === "Doc") {
             if (create) create(fieldType, fieldState, file);
             else if (update && id) update(fieldType, fieldState, id, file);
+            const nav = fieldType === "Book" ? "/" : "/profile";
+            navigate(nav);
         }
         else if (fieldType === "User") {
             if (create) create(fieldType, fieldState);
             else if (update && id) update(fieldType, fieldState, id);
+            navigate("/profile");
         }
         else if (fieldType === "Login") {
             e.preventDefault();
@@ -71,14 +74,14 @@ const DetailsForm: React.FC<{
     };
 
     return (
-        <div>
+        <div className="text-gray-400">
             <form onSubmit={handleSubmit}>
                 {fields.map(field => {
                     if (field.type === "select") {
                         return (
                             <div key={field.id}>
                                 <label htmlFor={field.id}>{field.labelText}</label>
-                                <select
+                                <select className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                                     id={field.id}
                                     name={field.name}
                                     value={fieldState[field.id]}

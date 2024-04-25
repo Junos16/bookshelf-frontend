@@ -33,52 +33,103 @@ const Table: React.FC<{
 
     return (
         <div>
-            <table>
-                <thead>
+            <table overflow-y-auto className="w-full text-gray-400">
+                <thead >
                     <tr>
                         {columns.map((key) => (
-                            <th key={key}>{key}</th>
+                            <th key={key} className="text-left px-4 py-2">{key}</th>
                         ))}
-                        {download ? <th>Download</th> : null}
-                        {update ? <th>Update</th> : null}
-                        {del ? <th>Delete</th> : null}
+                        {download && <th className="text-left px-4 py-2">Download</th>}
+                        {update && <th className="text-left px-4 py-2">Update</th>}
+                        {del && <th className="text-left px-4 py-2">Delete</th>}
                     </tr>
                 </thead>
                 <tbody>
                     {list.map((item, index) => (
                         <tr key={index}>
                             {columns.map((key) => (
-                                <td key={key}>{item[key as keyof Book | keyof Doc] as string}</td>
+                                <td key={key} className="text-left px-4 py-2">{item[key as keyof (Book | Doc)] as string}</td>
                             ))}
-                            <td>
-                                {download ? 
+                            {download && (
+                                <td className="text-left px-4 py-2">
                                     <Button 
-                                        linkName = "Download"
-                                        func = {() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
-                                    /> 
-                                    : null}
-                            </td>
-                            <td>
-                                {update ? 
+                                        linkName="Download"
+                                        func={() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
+                                        customClass="hover:bg-gray-200"
+                                    />
+                                </td>
+                            )}
+                            {update && (
+                                <td className="text-left px-4 py-2">
                                     <Button 
-                                        linkName = "Update" 
-                                        linkUrl = {"/entity/" + entityType + "/"+ (entityType === "Book" ? item.isbn : item.id)}
-                                    /> 
-                                : null}
-                            </td>
-                            <td>
-                                {del ? 
+                                        linkName="Update" 
+                                        linkUrl={"/entity/" + entityType + "/" + (entityType === "Book" ? item.isbn : item.id)}
+                                        customClass="hover:bg-gray-200"
+                                    />
+                                </td>
+                            )}
+                            {del && (
+                                <td className="text-left px-4 py-2">
                                     <Button 
-                                        linkName = "Delete"
-                                        func = {() => handleDelete(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
-                                    /> 
-                                : null}
-                            </td>
+                                        linkName="Delete"
+                                        func={() => handleDelete(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
+                                        customClass="hover:bg-gray-200"
+                                    />
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+
+        // <div>
+        //     <table>
+        //         <thead>
+        //             <tr>
+        //                 {columns.map((key) => (
+        //                     <th key={key}>{key}</th>
+        //                 ))}
+        //                 {download ? <th>Download</th> : null}
+        //                 {update ? <th>Update</th> : null}
+        //                 {del ? <th>Delete</th> : null}
+        //             </tr>
+        //         </thead>
+        //         <tbody>
+        //             {list.map((item, index) => (
+        //                 <tr key={index}>
+        //                     {columns.map((key) => (
+        //                         <td key={key}>{item[key as keyof Book | keyof Doc] as string}</td>
+        //                     ))}
+        //                     <td>
+        //                         {download ? 
+        //                             <Button 
+        //                                 linkName = "Download"
+        //                                 func = {() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
+        //                             /> 
+        //                             : null}
+        //                     </td>
+        //                     <td>
+        //                         {update ? 
+        //                             <Button 
+        //                                 linkName = "Update" 
+        //                                 linkUrl = {"/entity/" + entityType + "/"+ (entityType === "Book" ? item.isbn : item.id)}
+        //                             /> 
+        //                         : null}
+        //                     </td>
+        //                     <td>
+        //                         {del ? 
+        //                             <Button 
+        //                                 linkName = "Delete"
+        //                                 func = {() => handleDelete(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
+        //                             /> 
+        //                         : null}
+        //                     </td>
+        //                 </tr>
+        //             ))}
+        //         </tbody>
+        //     </table>
+        // </div>
     );
 };
 

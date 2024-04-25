@@ -49,7 +49,7 @@ const EntityPage = () => {
                 </div>
             ) : (
                 <div>
-                    <h2>Create new {entityType}?</h2>
+                    <h2 className="mb-4 text-gray-200 text-4xl text-center font-bold">Create new {entityType}?</h2>
                     <DetailsForm 
                         fieldType={entityType}
                         id={parseInt(id)}

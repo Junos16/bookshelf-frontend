@@ -9,7 +9,6 @@ const Input: React.FC<{
     name: string;
     type: string;
     isRequired?: boolean;
-    fixedInputClass?: string;
     customClass?: string;
     placeholder?: string;
 }> = ({
@@ -21,10 +20,10 @@ const Input: React.FC<{
     name,
     type,
     isRequired = false,
-    fixedInputClass = "",
     customClass = "",
     placeholder = ""
 }) => {
+    const fixedInputClass = "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
     return (
         <div>
             <label htmlFor={labelFor}>{labelText}</label>

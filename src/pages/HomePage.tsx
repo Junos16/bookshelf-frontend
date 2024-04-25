@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
         setEntities(data);
     };
 
-    const handleButtonClick = (offsetChange: number) => {
+    const handleButtonClick = async (offsetChange: number) => {
         setQueryParams(prevParams => ({
             ...prevParams,
             offset: (prevParams.offset || 0) + offsetChange
@@ -63,65 +63,130 @@ const HomePage: React.FC = () => {
     }
 
     return (
-        <div>
-            <Header
-                heading = "BookShelf"
-                paragraph = "Share books and notes with all students in your university"
-                linkName = "Home"
-                linkUrl = "/"
-            />
-            <div>
-                {LoggedIn ? (
-                    <div>
-                        <Button
-                            linkName="Logout"
-                            func={handleLogout} 
-                        />
-                        <Button
-                            linkName="Profile"
-                            linkUrl="/Profile" 
-                        />
-                        {GetCookies()?.userRole === UserRole.ADMIN ? (
+        <div className="flex flex-col">
+            <div className="flex justify-between items-center">
+                <Header
+                    heading="BookShelf"
+                    paragraph="Share books and notes with all students in your university"
+                />
+                <div className="flex items-center">
+                    {LoggedIn ? (
+                        <div className="flex">
                             <Button
-                                linkName="Add Book"
-                                linkUrl="/entity/Book/create"  
-                            />  
-                    ) : null};
-                    </div>
-                ) : ( 
-                    <div>
-                       <Button 
-                            linkName = "Login"
-                            linkUrl = "/login"
-                            func = {handleLogin}
-                        />
-                        <Button
-                            linkName = "Signup"
-                            linkUrl = "/signup"
-                        />  
-                    </div>    
-                )}
+                                linkName="Logout"
+                                func={handleLogout}
+                                customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mr-2 ml-8"
+                            />
+                            <Button
+                                linkName="Profile"
+                                linkUrl="/Profile"
+                                customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mr-2"
+                            />
+                            {GetCookies()?.userRole === UserRole.ADMIN ? (
+                                <Button
+                                    linkName="Add Book"
+                                    linkUrl="/entity/Book/create"
+                                    customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4"
+                                />
+                            ) : null}
+                        </div>
+                    ) : (
+                        <div className="flex">
+                            <Button
+                                linkName="Login"
+                                linkUrl="/login"
+                                func={handleLogin}
+                                customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mr-2 ml-8"
+                            />
+                            <Button
+                                linkName="Signup"
+                                linkUrl="/signup"
+                                customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-bold rounded-md py-2 px-4"
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
             <div>
-                <Navbar
-                    options = {Authorized() ? ["Book", "Doc"] : ["Book"]} 
-                    onSelectEntity = {setSelectedEntity} 
+                <div className="flex items-center">
+                    <Navbar
+                        options={Authorized() ? ["Book", "Doc"] : ["Book"]}
+                        onSelectEntity={setSelectedEntity}
+                    />
+                </div>
+                <FilterForm
+                    entityType={selectedEntity}
+                    queryParams={queryParams}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleButtonClick={handleButtonClick}
                 />
-                <FilterForm 
-                    entityType = {selectedEntity}
-                    queryParams = {queryParams}
-                    handleChange = {handleChange}
-                    handleSubmit = {handleSubmit}
-                    handleButtonClick = {handleButtonClick}
-                />
-                <Table 
-                    list={Entities ?? []} 
-                    download={true} 
-                    update={GetCookies()?.userRole === UserRole.ADMIN} 
+                <Table
+                    list={Entities ?? []}
+                    download={true}
+                    update={GetCookies()?.userRole === UserRole.ADMIN}
                     del={GetCookies()?.userRole === UserRole.ADMIN}
                 />
             </div>
         </div>
+
+        // <div className = "flex flex-col">
+        //     <Header
+        //         heading = "BookShelf"
+        //         paragraph = "Share books and notes with all students in your university"
+        //     />
+        //     <div className = "flex justify-end items-center px-4">
+        //         {LoggedIn ? (
+        //             <div>
+        //                 <Button
+        //                     linkName="Logout"
+        //                     func={handleLogout} 
+        //                 />
+        //                 <Button
+        //                     linkName="Profile"
+        //                     linkUrl="/Profile" 
+        //                 />
+        //                 {GetCookies()?.userRole === UserRole.ADMIN ? (
+        //                     <Button
+        //                         linkName="Add Book"
+        //                         linkUrl="/entity/Book/create"  
+        //                     />  
+        //             ) : null};
+        //             </div>
+        //         ) : ( 
+        //             <div>
+        //                <Button 
+        //                     linkName = "Login"
+        //                     linkUrl = "/login"
+        //                     func = {handleLogin}
+        //                 />
+        //                 <Button
+        //                     linkName = "Signup"
+        //                     linkUrl = "/signup"
+        //                 />  
+        //             </div>    
+        //         )}
+        //     </div>
+        //     <div>
+        //         <Navbar
+        //             options = {Authorized() ? ["Book", "Doc"] : ["Book"]} 
+        //             onSelectEntity = {setSelectedEntity} 
+        //         />
+        //         <FilterForm 
+        //             entityType = {selectedEntity}
+        //             queryParams = {queryParams}
+        //             handleChange = {handleChange}
+        //             handleSubmit = {handleSubmit}
+        //             handleButtonClick = {handleButtonClick}
+        //         />
+        //         <Table 
+        //             list={Entities ?? []} 
+        //             download={true} 
+        //             update={GetCookies()?.userRole === UserRole.ADMIN} 
+        //             del={GetCookies()?.userRole === UserRole.ADMIN}
+        //         />
+        //     </div>
+        // </div>
     );
 }
 

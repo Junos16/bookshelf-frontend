@@ -37,6 +37,7 @@ const ProfilePage: React.FC = () => {
                     <Button
                         linkName="Upload Document"
                         linkUrl="/entity/Doc/create"
+                        customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-semibold rounded-md px-2 py-1 text-sm"
                     />
                     <Table 
                         list = {userDetails["docs"]} 
@@ -62,6 +63,7 @@ const ProfilePage: React.FC = () => {
                     <Button
                         linkName = "Login"
                         linkUrl = "/login"
+                        customClass="transition duration-300 ease-in-out hover:bg-emerald-600 bg-emerald-500 text-black font-semibold rounded-md px-2 py-1 text-sm"
                     />
                 </div>
             ) : null}

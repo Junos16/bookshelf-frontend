@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const FormAction: React.FC<{
     handleSubmit: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -14,9 +15,15 @@ const FormAction: React.FC<{
     return (
         <div>
             {type === "Button" ? (
-                <button type={action} onClick={handleSubmit}>
-                    {text}
-                </button>
+                // <button type={action} onClick={handleSubmit}>
+                //     {text}
+                // </button>
+                <Button
+                    linkName={text}
+                    action={action}
+                    func={()=>handleSubmit}
+                    customClass="bg-emerald-500 text-black font-bold rounded-md py-2 px-4 mt-4"
+                />
             ) : (
                 <div></div>
             )}
