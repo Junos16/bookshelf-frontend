@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# Bookshelf
+> A web app for university to share textbooks and allow their students to access them and share notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bookshelf is a web app that a university can use to host textbooks on their server and allow students to access them at any point of time. Students can then signup for the site and get access to notes and documents that other students have shared and can share their own documents.
 
-Currently, two official plugins are available:
+![image](https://github.com/Junos16/bookshelf-frontend/assets/93246181/08a53d50-3413-466d-a97f-c65cfee4772c)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Backend Repo](https://github.com/Junos16/bookshelf-backend)
 
-## Expanding the ESLint configuration
+Libraries I used:
+Frontend:
+  - ReactJS
+  - TailwindCSS
+  - Axios
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Backend:
+  - ExpressJS
+  - TypeORM (with MySQL as the database)
+  - MulterJS
+  - JWT
