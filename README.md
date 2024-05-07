@@ -10,7 +10,7 @@ Bookshelf is a web app that a university can use to host textbooks on their serv
 Libraries I used:
 Frontend:
   - ReactJS
-  - TailwindCSS0
+  - TailwindCSS
   - Axios
 
 Backend:
