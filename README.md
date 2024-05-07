@@ -5,12 +5,12 @@ Bookshelf is a web app that a university can use to host textbooks on their serv
 
 ![image](https://github.com/Junos16/bookshelf-frontend/assets/93246181/08a53d50-3413-466d-a97f-c65cfee4772c)
 
-Backend Repo: [github.com/Junos16/bookshelf-backend]
+![Backend Repo](https://github.com/Junos16/bookshelf-backend)
 
 Libraries I used:
 Frontend:
   - ReactJS
-  - TailwindCSS
+  - TailwindCSS0
   - Axios
 
 Backend:
