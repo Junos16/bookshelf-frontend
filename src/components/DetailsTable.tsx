@@ -11,8 +11,8 @@ const DetailsTable: React.FC<{
     const rows = Object.keys(entity);
 
     return (
-        <div>
-            <h2 className="mb-4 text-center text-4xl font-extrabold text-gray-200">{entityType} Details</h2>
+        <div className="mb-4">
+            <h2 className="mt-4 mb-3 text-center text-4xl font-extrabold text-gray-200">{entityType} Details</h2>
             <div className="overflow-auto">
                 <table className="overflow-y-auto text-gray-200 w-full border-collapse">
                     <tbody>

@@ -6,14 +6,14 @@ const Navbar: React.FC<{
     onSelectEntity: (entity: string) => void
 }> = ({ options, onSelectEntity }) => {
     return (
-        <nav className="mt-4 mb-2 flex justify-center">
+        <nav className="mt-2 mb-2 flex justify-center">
             <ul className="flex items-center space-x-4">
                 {options.map(option => (
                     <li key={option} className="relative">
                         <Button 
                             linkName={option}
                             func={() => onSelectEntity(option)}
-                            customClass="transition duration-300 ease-in-out bg-emerald-500 text-black hover:bg-emerald-600 rounded-md px-3 py-1.5 shadow-md"
+                            customClass="transition duration-300 ease-in-out bg-emerald-500 text-black font-semibold hover:bg-emerald-600 rounded-md px-3 py-1.5 shadow-md"
                         />
                     </li>
                 ))}

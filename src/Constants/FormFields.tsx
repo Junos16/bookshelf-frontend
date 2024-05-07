@@ -100,17 +100,17 @@ const docFields = [
         placeholder: "Title",
         options: []
     },
-    {
-        labelText: "Owner",
-        labelFor: "owner",
-        id: "owner",
-        name: "owner",
-        type: "text",
-        autoComplete: "owner",
-        isRequired: true,
-        placeholder: "Owner",
-        options: []
-    },
+    // {
+    //     labelText: "Owner",
+    //     labelFor: "owner",
+    //     id: "owner",
+    //     name: "owner",
+    //     type: "text",
+    //     autoComplete: "owner",
+    //     isRequired: true,
+    //     placeholder: "Owner",
+    //     options: []
+    // },
     {
         labelText: "Department",
         labelFor: "department",

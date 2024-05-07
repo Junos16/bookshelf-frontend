@@ -113,7 +113,7 @@ const DetailsForm: React.FC<{
                     }
                 })}
                 {(fieldType !== "Login" && fieldType !== "Signup" && fieldType !== "User") ?
-                    <div>
+                    <div className="mt-3">
                         <label htmlFor = "file">Upload File</label>
                         <input type = "file" name = "pdf" id = "file" onChange = {handleFileChange}/>
                     </div> : null

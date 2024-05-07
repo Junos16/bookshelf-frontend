@@ -25,7 +25,7 @@ export const tempUser: User = {
 export const tempDoc: Doc = {
     id: 0,
     title: "",
-    owner: tempUser,
+    // owner: tempUser,
     department: Department.CS,
     year: Year.FIRST_YEAR,
     language: ""

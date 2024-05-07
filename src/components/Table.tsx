@@ -55,7 +55,7 @@ const Table: React.FC<{
                                     <Button 
                                         linkName="Download"
                                         func={() => handleDownload(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
-                                        customClass="hover:bg-gray-200"
+                                        customClass="transition duration-300 ease-in-out hover:bg-gray-700 rounded-md py-2 px-1.5"
                                     />
                                 </td>
                             )}
@@ -64,7 +64,7 @@ const Table: React.FC<{
                                     <Button 
                                         linkName="Update" 
                                         linkUrl={"/entity/" + entityType + "/" + (entityType === "Book" ? item.isbn : item.id)}
-                                        customClass="hover:bg-gray-200"
+                                        customClass="transition duration-300 ease-in-out hover:bg-gray-700 rounded-md py-2 px-1.5"
                                     />
                                 </td>
                             )}
@@ -73,7 +73,7 @@ const Table: React.FC<{
                                     <Button 
                                         linkName="Delete"
                                         func={() => handleDelete(parseInt(entityType === "Book" ? item.isbn as string : item.id as string))}
-                                        customClass="hover:bg-gray-200"
+                                        customClass="transition duration-300 ease-in-out hover:bg-gray-700 rounded-md py-2 px-1.5"
                                     />
                                 </td>
                             )}

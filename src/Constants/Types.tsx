@@ -27,7 +27,7 @@ export interface Book extends templateInterface {
 export interface Doc extends templateInterface {
     id: number;
     title: string;
-    owner: User;
+    // owner: User;
     department: Department;
     year: Year;
     language: string;

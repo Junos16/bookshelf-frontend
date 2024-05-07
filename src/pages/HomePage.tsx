@@ -25,9 +25,11 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {  
         setLoggedIn(Authorized());
-        async () => {
+        const fetchInitialEntities = async () => {
             setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
         }; 
+
+        fetchInitialEntities();
     }, [LoggedIn, queryParams, selectedEntity]);
     
 
@@ -51,6 +53,12 @@ const HomePage: React.FC = () => {
             ...prevParams,
             offset: (prevParams.offset || 0) + offsetChange
         }));
+
+        const refreshEntities = async () => {
+            setEntities(await GetEntitiesConnection(selectedEntity, queryParams));
+        }; 
+
+        refreshEntities();
     };
 
     const handleLogout = () => {
@@ -107,13 +115,7 @@ const HomePage: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div>
-                <div className="flex items-center">
-                    <Navbar
-                        options={Authorized() ? ["Book", "Doc"] : ["Book"]}
-                        onSelectEntity={setSelectedEntity}
-                    />
-                </div>
+            <div className="mt-4">
                 <FilterForm
                     entityType={selectedEntity}
                     queryParams={queryParams}
@@ -126,7 +128,13 @@ const HomePage: React.FC = () => {
                     download={true}
                     update={GetCookies()?.userRole === UserRole.ADMIN}
                     del={GetCookies()?.userRole === UserRole.ADMIN}
-                />
+                />                
+                <div className="mb-4">
+                    <Navbar
+                        options={Authorized() ? ["Book", "Doc"] : ["Book"]}
+                        onSelectEntity={setSelectedEntity}
+                    />
+                </div>
             </div>
         </div>
 

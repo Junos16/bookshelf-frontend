@@ -1,5 +1,5 @@
 import React from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header: React.FC<{
     heading: string,
@@ -8,17 +8,17 @@ const Header: React.FC<{
     linkUrl?: string,
 }> = ({ heading, paragraph, linkName, linkUrl = "#" }) => {
     return (
-        // const navigate = useNavigate();
-
         <div className="flex items-center mb-2">
             <div className="mr-4">
-                {/* <Link > */}
+                <Link to={"/"}>
                     <img 
                         alt=""
                         className="h-auto max-h-14 max-w-full"
                         src="https://ik.imagekit.io/pibjyepn7p9/Lilac_Navy_Simple_Line_Business_Logo_CGktk8RHK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1649962071315"
+                        // onClick={() => navigate("/")}
+                        // src="..\assets\pngtree-open-book-flat-design-png-image_4124286.jpg"
                     />
-                {/* </Link> */}
+                </Link>
             </div>
             <div>
                 <h2 className="mt-2 mb-2 text-left text-4xl font-extrabold text-gray-200">
